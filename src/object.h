@@ -1,3 +1,6 @@
+#ifndef OBJECT_H
+#define OBJECT_H
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -32,20 +35,35 @@ struct obj_data
 
     std::vector <face *> faces;
     int face_count;
+
+    // Coordinate data
+    coord center;
+
+    char * obj_name;
 };
 
 class ModelObject {
-	obj_data * object;
-
 	public:
+        // static ModelObject * current_object;
+
 		ModelObject  ();
         ~ModelObject ();
 		void read_obj(const char *);
         void save_obj();
-        void print_data();
-        void generate_gl();
+
+        coord get_center() { return object->center; }
+
+        const obj_data * get_object() { return object; }
+        const char * get_name(char ** argv);
 
     private:
+        obj_data * object;
+
+        void process_object(); // Find the min/max and center
+
         void print_coord(const coord *);
         void print_face(const face *);
+        void print_data();
 };
+
+#endif

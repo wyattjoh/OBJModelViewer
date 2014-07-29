@@ -8,15 +8,19 @@ endif
 
 all: modelviewer
 
-modelviewer: src/object.o src/modelviewer.o
-	g++ src/object.o src/modelviewer.o -o modelviewer $(FLAGS)
+modelviewer: src/object.o src/modelviewer.o src/opengl.o
+	g++ src/object.o src/opengl.o src/modelviewer.o -o modelviewer $(FLAGS)
 
-src/object.o: src/object.cpp
+src/object.o: src/object.h src/object.cpp
 	g++ -c src/object.cpp -o src/object.o
+
+src/opengl.o: src/opengl.h src/opengl.cpp
+	g++ -c src/opengl.cpp -o src/opengl.o
 
 src/modelviewer.o: src/modelviewer.cpp
 	g++ -c src/modelviewer.cpp -o src/modelviewer.o
 
 clean:
-	rm src/*.o
-	rm modelviewer
+	rm -rf src/*.o
+	rm -rf modelviewer
+	rm -rf output.obj

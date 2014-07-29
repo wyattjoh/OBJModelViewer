@@ -1,14 +1,14 @@
-#include "object.h"
+#include "opengl.h"
 
 int main(int argc, char **argv) 
 {  
-    ModelObject * object = new ModelObject();
+    OpenGL * gl_object = new OpenGL;
 
-    object->read_obj(argv[1]);
+    gl_object->read_obj(argv[1]);
 
-    object->save_obj();
+    gl_object->gl_init(argc, argv);
 
-    delete object;
+    delete gl_object;
 
     return 0;  
 }
